@@ -31,7 +31,6 @@ cffi==1.15.0
 chardet==3.0.4
 charset-normalizer==2.0.6
 chart-studio==1.1.0
-ChatterBot==1.0.8
 click==8.0.1
 cmdstanpy==0.9.5
 colorama==0.4.3
