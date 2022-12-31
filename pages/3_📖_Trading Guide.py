@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt1
 from mplfinance.original_flavor import candlestick_ohlc
 import pandas as pd
 import warnings
+from PIL import Image
 import matplotlib.dates as mpdates
 from plotly.offline import iplot
 import cufflinks as cf
@@ -22,6 +23,7 @@ import math
 import matplotlib.pyplot as plt
 from scipy import stats
 import scipy as sp
+from PIL import Image
 
 from dateutil.relativedelta import relativedelta
 
@@ -34,7 +36,8 @@ st.subheader('_Stock Tickers_ -')
 
 st.markdown('<div style="text-align: justify;">Stock ticker symbols are codes that represent publicly traded companies in the stock market. Although a stocksticker, strictly speaking, is distinct from its ticker symbol -- the ticker is the constantly updating stream of pertinent information pertaining to a stock and the ticker symbol is the three- or four-letter code -- most investors use the term stock ticker as shorthand for its ticker symbol.</div>', unsafe_allow_html=True)
 st.write("#")
-st.image('https://drive.google.com/file/d/1TVt8flQWQvdTmT-CatDJv1gqZ14hW76-/view?usp=sharing',caption='Tickers', width=500, use_column_width=00, clamp=False, channels="RGB", output_format="auto")
+img = Image.open("Images\Ticker-Symbol.png")
+st.image(img,caption='Tickers', width=500, use_column_width=00, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader('_Candlesticks_ -')
