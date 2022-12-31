@@ -37,7 +37,7 @@ st.subheader('_Stock Tickers_ -')
 st.markdown('<div style="text-align: justify;">Stock ticker symbols are codes that represent publicly traded companies in the stock market. Although a stocksticker, strictly speaking, is distinct from its ticker symbol -- the ticker is the constantly updating stream of pertinent information pertaining to a stock and the ticker symbol is the three- or four-letter code -- most investors use the term stock ticker as shorthand for its ticker symbol.</div>', unsafe_allow_html=True)
 st.write("#")
 img = Image.open("Images\Ticker-Symbol.png")
-st.image(img,caption='Tickers', width=500, use_column_width=00, clamp=False, channels="RGB", output_format="auto")
+st.image(st.image("https://www.pexels.com/photo/landscape-nature-sky-man-6620743/"),caption='Tickers', width=500, use_column_width=00, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader('_Candlesticks_ -')
