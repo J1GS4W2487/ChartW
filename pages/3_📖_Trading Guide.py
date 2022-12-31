@@ -14,7 +14,7 @@ import pandas_datareader as data
 import streamlit as st
 import plotly.graph_objects as go
 # Import necessary libraries
-
+from PIL import Image
 import pandas as pd
 import yfinance as yf
 import numpy as np
