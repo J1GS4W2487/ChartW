@@ -64,7 +64,7 @@ st.subheader('_Exponential Moving Average (EMA)_ -')
 
 st.markdown("An exponential moving average (EMA) is a sort of moving average (MA) that gives the most recent data points more weight and relevance. The exponentially weighted moving average is another name for the exponential moving average. An exponentially weighted moving average reacts more significantly to recent price changes than a simple moving average (SMA), which applies an equal weight to all observations in the period.")
 st.write("#")
-st.image('Images\EMA99.JPG',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
+st.image('https://user-images.githubusercontent.com/68945844/215408623-c2c090aa-bd02-4f9d-8614-ad166cfec690.jpg',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader("Indian Flag Strategy with EMA -")
