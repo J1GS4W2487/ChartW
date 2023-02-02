@@ -62,33 +62,33 @@ st.write("#")
 
 st.subheader('_Exponential Moving Average (EMA)_ -')
 
-st.markdown('<div style="text-align: justify;">An exponential moving average (EMA) is a sort of moving average (MA) that gives the most recent data points more weight and relevance. The exponentially weighted moving average is another name for the exponential moving average. An exponentially weighted moving average reacts more significantly to recent price changes than a simple moving average (SMA), which applies an equal weight to all observations in the period.")
+st.markdown('<div style="text-align: justify;">An exponential moving average (EMA) is a sort of moving average (MA) that gives the most recent data points more weight and relevance. The exponentially weighted moving average is another name for the exponential moving average. An exponentially weighted moving average reacts more significantly to recent price changes than a simple moving average (SMA), which applies an equal weight to all observations in the period.</div>', unsafe_allow_html=True)
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215408623-c2c090aa-bd02-4f9d-8614-ad166cfec690.jpg',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader("_Indian Flag Strategy with EMA_ -")
-st.markdown('<div style="text-align: justify;">If you see the EMA lines in the order of the colours present in the Indian Flag, i.e, ORANGE, BLUE and GREEN, it indicates that an upward trend can be followed. In contrast, if the the colours are in a reverse order, i.e, GREEN, BLUE and ORANGE, it forecasts that a downtrend can be traced by the prices.  </div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: justify;">If you see the EMA lines in the order of the colours present in the Indian Flag, i.e, ORANGE, BLUE and GREEN, it indicates that an upward trend can be followed. In contrast, if the the colours are in a reverse order, i.e, GREEN, BLUE and ORANGE, it forecasts that a downtrend can be traced by the prices. </div>', unsafe_allow_html=True)
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405358-a4c99cc7-bbaa-480d-8d4e-b481a8415a9b.png',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 
 st.subheader('_Moving Average Convergence Divergence (MACD)_ -')
-st.markdown("Moving average convergence/divergence (MACD, or MAC-D) is a trend-following momentum indicator that shows the relationship between two exponential moving averages (EMAs) of a security’s price. The MACD line is calculated by subtracting the 26-period EMA from the 12-period EMA. The result of that calculation is the MACD line. A nine-day EMA of the MACD line is called the signal line, which is then plotted on top of the MACD line, which can function as a trigger for buy or sell signals. Traders may buy the security when the MACD line crosses above the signal line and sell—or short—the security when the MACD line crosses below the signal line. MACD indicators can be interpreted in several ways, but the more common methods are crossovers, divergences, and rapid rises/falls.")
+st.markdown('<div style="text-align: justify;">Moving average convergence/divergence (MACD, or MAC-D) is a trend-following momentum indicator that shows the relationship between two exponential moving averages (EMAs) of a security’s price. The MACD line is calculated by subtracting the 26-period EMA from the 12-period EMA. The result of that calculation is the MACD line. A nine-day EMA of the MACD line is called the signal line, which is then plotted on top of the MACD line, which can function as a trigger for buy or sell signals. Traders may buy the security when the MACD line crosses above the signal line and sell—or short—the security when the MACD line crosses below the signal line. MACD indicators can be interpreted in several ways, but the more common methods are crossovers, divergences, and rapid rises/falls.</div>', unsafe_allow_html=True)
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405371-b449458e-8e47-4fb1-b5fb-557a483f4f75.JPG',caption='Moving Average Convergence Divergence', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 
 st.subheader("_Bollinger Bands (BB)_ -")
-st.markdown('<div style="text-align: justify;">John Bollinger created the sort of price envelope known as Bollinger Bands. Upper and lower price range levels are indicated by price envelopes. Bollinger Bands are envelops that are drawn above and below a price's simple moving average at a certain standard deviation level. The bands' width adjusts to changes in the underlying price's volatility because it is based on standard deviation.")
+st.markdown('<div style="text-align: justify;">John Bollinger created the sort of price envelope known as Bollinger Bands. Upper and lower price range levels are indicated by price envelopes. Bollinger Bands are envelops that are drawn above and below a simple moving average at a certain standard deviation level. The band width adjusts to changes in the underlying volatility because it is based on standard deviation</div>.', unsafe_allow_html=True)
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405503-7368c8c7-7a71-4ed5-8855-3d20623c9809.JPG',caption='Bollinger Bands', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader('_Relative Strength Index (RSI)_ -')
-st.markdown('<div style="text-align: justify;">The relative strength index is a momentum indicator used in technical analysis (RSI). The RSI, which measures the speed and magnitude of recent price fluctuations, is used to evaluate overvalued or undervalued situations in a security's price. The RSI is represented as an oscillator on a scale of 0 to 100. (a line graph). J. Welles Wilder Jr. revealed the indicator he created in his seminal 1978 book New Concepts in Technical Trading Systems. The RSI is useful for more than just identifying overbought and oversold securities. It could also indicate that equities are about to experience a trend reversal or a price correction. It can be used as a buy/sell signal. Historically, an RSI rating of 70 or higher indicates a problem.")
+st.markdown('<div style="text-align: justify;">The relative strength index is a momentum indicator used in technical analysis (RSI). The RSI, which measures the speed and magnitude of recent price fluctuations, is used to evaluate overvalued or undervalued situations in a securitys price. The RSI is represented as an oscillator on a scale of 0 to 100. (a line graph). J. Welles Wilder Jr. revealed the indicator he created in his seminal 1978 book New Concepts in Technical Trading Systems. The RSI is useful for more than just identifying overbought and oversold securities. It could also indicate that equities are about to experience a trend reversal or a price correction. It can be used as a buy/sell signal. Historically, an RSI rating of 70 or higher indicates a problem</div>.', unsafe_allow_html=True)
 
 st.image('https://user-images.githubusercontent.com/68945844/216242288-dafbafea-78fe-4367-9497-aad24b8f29fd.png',caption='Relative Strength Index', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
