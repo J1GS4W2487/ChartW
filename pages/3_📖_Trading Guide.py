@@ -29,7 +29,7 @@ from dateutil.relativedelta import relativedelta
 
 import datetime
 
-st.header("Learning to Trade 💡🪔")
+st.header("Learning to Trade 💡")
 st.write("#")
 
 st.subheader('_Stock Tickers_ -')
