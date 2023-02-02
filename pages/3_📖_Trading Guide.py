@@ -53,21 +53,21 @@ st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405468-dc6b2285-2a0f-442c-9623-26e9168cb42a.png',caption='Triangle Pattern', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
-st.subheader('_Simple Moving Average (EMA)_ -')
+st.subheader('_Simple Moving Average (SMA)_ -')
 
 st.markdown('<div style="text-align: justify;">A statistic known as a moving average measures the typical change over time in a data collection. Moving averages are frequently employed in finance by technical analysts to monitor price patterns for certain stocks. While a negative trend would be interpreted as a sign of deterioration, an upward trend in a moving average could indicate an increase in the price or momentum of an asset. Moving averages come in a wide range of types nowadays, from straightforward measurements to intricate formulas that must be efficiently calculated by a computer program. Technical analysis is a discipline of investing that aims to comprehend and capitalize on the price movement patterns of securities and indices.</div>', unsafe_allow_html=True)
 st.write("#")
-st.image('https://user-images.githubusercontent.com/68945844/215406398-38093649-29a9-4bec-b677-4116f7f2c555.png',caption='Simple Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
+st.image('https://user-images.githubusercontent.com/68945844/216241636-bc6f71f3-e1e1-4049-a656-7b0d1dde4fe7.png',caption='Simple Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader('_Exponential Moving Average (EMA)_ -')
 
-st.markdown("An exponential moving average (EMA) is a sort of moving average (MA) that gives the most recent data points more weight and relevance. The exponentially weighted moving average is another name for the exponential moving average. An exponentially weighted moving average reacts more significantly to recent price changes than a simple moving average (SMA), which applies an equal weight to all observations in the period.")
+st.markdown('<div style="text-align: justify;">An exponential moving average (EMA) is a sort of moving average (MA) that gives the most recent data points more weight and relevance. The exponentially weighted moving average is another name for the exponential moving average. An exponentially weighted moving average reacts more significantly to recent price changes than a simple moving average (SMA), which applies an equal weight to all observations in the period.")
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215408623-c2c090aa-bd02-4f9d-8614-ad166cfec690.jpg',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
-st.subheader("Indian Flag Strategy with EMA -")
+st.subheader("_Indian Flag Strategy with EMA_ -")
 st.markdown('<div style="text-align: justify;">If you see the EMA lines in the order of the colours present in the Indian Flag, i.e, ORANGE, BLUE and GREEN, it indicates that an upward trend can be followed. In contrast, if the the colours are in a reverse order, i.e, GREEN, BLUE and ORANGE, it forecasts that a downtrend can be traced by the prices.  </div>', unsafe_allow_html=True)
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405358-a4c99cc7-bbaa-480d-8d4e-b481a8415a9b.png',caption='Exponential Moving Average', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
@@ -82,15 +82,15 @@ st.write("#")
 
 
 st.subheader("_Bollinger Bands (BB)_ -")
-st.markdown("John Bollinger created the sort of price envelope known as Bollinger Bands. Upper and lower price range levels are indicated by price envelopes. Bollinger Bands are envelops that are drawn above and below a price's simple moving average at a certain standard deviation level. The bands' width adjusts to changes in the underlying price's volatility because it is based on standard deviation.")
+st.markdown('<div style="text-align: justify;">John Bollinger created the sort of price envelope known as Bollinger Bands. Upper and lower price range levels are indicated by price envelopes. Bollinger Bands are envelops that are drawn above and below a price's simple moving average at a certain standard deviation level. The bands' width adjusts to changes in the underlying price's volatility because it is based on standard deviation.")
 st.write("#")
 st.image('https://user-images.githubusercontent.com/68945844/215405503-7368c8c7-7a71-4ed5-8855-3d20623c9809.JPG',caption='Bollinger Bands', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 
 st.subheader('_Relative Strength Index (RSI)_ -')
-st.markdown("The relative strength index is a momentum indicator used in technical analysis (RSI). The RSI, which measures the speed and magnitude of recent price fluctuations, is used to evaluate overvalued or undervalued situations in a security's price. The RSI is represented as an oscillator on a scale of 0 to 100. (a line graph). J. Welles Wilder Jr. revealed the indicator he created in his seminal 1978 book New Concepts in Technical Trading Systems. The RSI is useful for more than just identifying overbought and oversold securities. It could also indicate that equities are about to experience a trend reversal or a price correction. It can be used as a buy/sell signal. Historically, an RSI rating of 70 or higher indicates a problem.")
+st.markdown('<div style="text-align: justify;">The relative strength index is a momentum indicator used in technical analysis (RSI). The RSI, which measures the speed and magnitude of recent price fluctuations, is used to evaluate overvalued or undervalued situations in a security's price. The RSI is represented as an oscillator on a scale of 0 to 100. (a line graph). J. Welles Wilder Jr. revealed the indicator he created in his seminal 1978 book New Concepts in Technical Trading Systems. The RSI is useful for more than just identifying overbought and oversold securities. It could also indicate that equities are about to experience a trend reversal or a price correction. It can be used as a buy/sell signal. Historically, an RSI rating of 70 or higher indicates a problem.")
 
-st.image('https://user-images.githubusercontent.com/68945844/215407662-8e3e3ea9-4f21-48d8-ba63-10d20decd8dd.png',caption='Bollinger Bands', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
+st.image('https://user-images.githubusercontent.com/68945844/216242288-dafbafea-78fe-4367-9497-aad24b8f29fd.png',caption='Relative Strength Index', width=500, use_column_width=500, clamp=False, channels="RGB", output_format="auto")
 st.write("#")
 st.write("#")
 
