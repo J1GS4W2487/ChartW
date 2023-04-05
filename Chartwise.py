@@ -46,14 +46,16 @@ end1 = st.date_input(
 )
 
 if start1==end1:
-    st.write("Please enter different dates")
+    st.write("Please Enter different dates")
 
 else:
     
 
     user_input = st.text_input('Enter Stock Ticker 🔠', 'AAPL')
     df = yf.download(user_input,start1,end1)
+    df1 = yf.download(user_input, start=end1)
     df['Id'] = np.arange(1, len(df)+1)
+    df1['Id'] = np.arange(df.Id.max(), len(df1)+df.Id.max())
 
     st.write("#")
     st.write("#")
@@ -64,6 +66,7 @@ else:
     else:
         st.subheader('Data Frame')
         st.write(df)
+        st.markdown('#')
         st.subheader('Candlestick Chart')
 
 
@@ -126,82 +129,181 @@ else:
         #fig.update_layout(xaxis_rangeslider_visible=False)
         st.plotly_chart(fig1)
 
-        st.subheader('Triangle Pattern Detection')
+        st.subheader('Chartwise Pattern Detection')
+        import numpy as np
+        from matplotlib import pyplot
         from scipy.stats import linregress
+        import pandas as pd
 
-        # Triangle Pattern
-        RECENT_HIGH_PIVOT_POINT = 0
-        RECENT_LOW_PIVOT_POINT = 0
+        backcandles = 50
 
-        FEASIBLE_HIGH_PIVOT_POINTS = np.array([])
-        FEASIBLE_LOW_PIVOT_POINTS = np.array([])
-        FEASIBLE_HIGH = np.array([])
-        FEASIBLE_LOW = np.array([])
+        candleid = int(df.Id.max()) - 1
 
-        for i in reversed(range(len(df))):
-            if df.Pivot[i] == 2 and RECENT_HIGH_PIVOT_POINT == 0:
-                RECENT_HIGH_PIVOT_POINT = df.Id[i]
-                FEASIBLE_HIGH = np.append(FEASIBLE_HIGH, df.High[i])
-            if df.Pivot[i] == 1 and RECENT_LOW_PIVOT_POINT == 0:
-                RECENT_LOW_PIVOT_POINT = df.Id[i]
-                FEASIBLE_LOW = np.append(FEASIBLE_LOW, df.Low[i])
-            if RECENT_HIGH_PIVOT_POINT != 0 and RECENT_LOW_PIVOT_POINT != 0:
-                break
+        maxim = np.array([])
+        minim = np.array([])
+        xxmin = np.array([])
+        xxmax = np.array([])
 
-        try:
-            FEASIBLE_HIGH_PIVOT_POINTS = np.append(FEASIBLE_HIGH_PIVOT_POINTS, RECENT_HIGH_PIVOT_POINT)
-            FEASIBLE_LOW_PIVOT_POINTS = np.append(FEASIBLE_LOW_PIVOT_POINTS, RECENT_LOW_PIVOT_POINT)
+        for i in range(candleid-backcandles, candleid+1):
+            if df.iloc[i].Pivot == 1:
+                minim = np.append(minim, df.iloc[i].Low)
+                xxmin = np.append(xxmin, i) #could be i instead df.iloc[i].name
+            if df.iloc[i].Pivot == 2:
+                maxim = np.append(maxim, df.iloc[i].High)
+                xxmax = np.append(xxmax, i) # df.iloc[i].name
+                
+        #slmin, intercmin = np.polyfit(xxmin, minim,1) #numpy
+        #slmax, intercmax = np.polyfit(xxmax, maxim,1)
 
-            dfHigh=df[df['Pivot']==2]
-            dfLow=df[df['Pivot']==1]
+        if len(xxmin) >= 3 and len(xxmax) >= 3:
 
-            MAX_HIGH_PIVOT_POINT = dfHigh.loc[dfHigh['PointPosition'] == dfHigh.PointPosition.max(), 'Id'].iloc[0]
-            MIN_LOW_PIVOT_POINT = dfLow.loc[dfLow['PointPosition'] == dfLow.PointPosition.min(), 'Id'].iloc[0]
 
-            FEASIBLE_HIGH_PIVOT_POINTS = np.append(FEASIBLE_HIGH_PIVOT_POINTS, MAX_HIGH_PIVOT_POINT)
-            FEASIBLE_HIGH = np.append(FEASIBLE_HIGH, dfHigh.loc[dfHigh['PointPosition'] == dfHigh.PointPosition.max(), 'High'])
-            FEASIBLE_LOW_PIVOT_POINTS = np.append(FEASIBLE_LOW_PIVOT_POINTS, MIN_LOW_PIVOT_POINT)
-            FEASIBLE_LOW = np.append(FEASIBLE_LOW, dfLow.loc[dfLow['PointPosition'] == dfLow.PointPosition.min(), 'Low'])
+            slmin, intercmin, rmin, pmin, semin = linregress(xxmin, minim)
+            slmax, intercmax, rmax, pmax, semax = linregress(xxmax, maxim)
 
-            dfHigh = dfHigh[dfHigh['Id'] > MAX_HIGH_PIVOT_POINT]
-            dfLow = dfLow[dfLow['Id'] > MIN_LOW_PIVOT_POINT]
+            print("Slope of minimum points line:", slmin)
+            print("Slope of maximum points line:", slmax)
+            print("Difference between the slopes:",(slmax-slmin))
 
-            FEASIBLE_HIGH_PIVOT_POINTS = np.append(FEASIBLE_HIGH_PIVOT_POINTS, dfHigh.loc[dfHigh['PointPosition'] == dfHigh.PointPosition.max(), 'Id'].iloc[0])
-            FEASIBLE_HIGH = np.append(FEASIBLE_HIGH, dfHigh.loc[dfHigh['PointPosition'] == dfHigh.PointPosition.max(), 'High'])
-            FEASIBLE_LOW_PIVOT_POINTS = np.append(FEASIBLE_LOW_PIVOT_POINTS, dfLow.loc[dfLow['PointPosition'] == dfLow.PointPosition.min(), 'Id'].iloc[0])
-            FEASIBLE_LOW = np.append(FEASIBLE_LOW, dfLow.loc[dfLow['PointPosition'] == dfLow.PointPosition.min(), 'Low']) 
+            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75:
+                st.markdown(f'<h1 style="color:#039c2c;font-size:16px;">{"A Channel Pattern has been Detected!!"}</h1>', unsafe_allow_html=True)
 
-            slmin, intercmin, rmin, pmin, semin = linregress(FEASIBLE_LOW_PIVOT_POINTS, FEASIBLE_LOW)
-            slmax, intercmax, rmax, pmax, semax = linregress(FEASIBLE_HIGH_PIVOT_POINTS, FEASIBLE_HIGH)
+                # Find the intersection point of the two lines
+                xi = (intercmin - intercmax) / (slmax - slmin)
+                yi = slmin * xi + intercmin
 
-            # To show stock data after END DATE to visualize stock trend after pattern
-            df1 = yf.download(user_input, start=end1)
-            df1['Id'] = np.arange(df.Id.max(), len(df1)+df.Id.max())
+                # Plot the graph with the trendlines and intersection point
+                xx = np.concatenate([xxmin, xxmax])
+                yy = np.concatenate([minim, maxim])
+                fitmin = slmin*xxmin + intercmin
+                fitmax = slmax*xxmax + intercmax
+                
 
-            df = pd.concat([df, df1])
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
+                                open=df['Open'],
+                                high=df['High'],
+                                low=df['Low'],
+                                close=df['Close'])])
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                                marker=dict(size=4, color="MediumPurple"),
+                                name="pivot")
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
+
+            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
+                st.markdown(f'<h1 style="color:#039c2c;font-size:16px;">{"A Triangle Pattern has been Detected!!"}</h1>', unsafe_allow_html=True)
+             
+
+                # Find the intersection point of the two lines
+                xi = (intercmin - intercmax) / (slmax - slmin)
+                yi = slmin * xi + intercmin
+
+                # Plot the graph with the trendlines and intersection point
+                xx = np.concatenate([xxmin, xxmax])
+                yy = np.concatenate([minim, maxim])
+                fitmin = slmin*xxmin + intercmin
+                fitmax = slmax*xxmax + intercmax
+                
+
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
+                                open=df['Open'],
+                                high=df['High'],
+                                low=df['Low'],
+                                close=df['Close'])])
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                                marker=dict(size=4, color="MediumPurple"),
+                                name="pivot")
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+                fig2.add_trace(go.Scatter(x=[xi], y=[yi], mode='markers', name='intersection',
+                         marker=dict(size=10, color="red")))
+
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
+                
+            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
+                st.markdown(f'<h1 style="color:#039c2c;font-size:16px;">{"A Wedge Pattern has been Detected!!"}</h1>', unsafe_allow_html=True)
+
+                # Find the intersection point of the two lines
+                xi = (intercmin - intercmax) / (slmax - slmin)
+                yi = slmin * xi + intercmin
+
+                # Plot the graph with the trendlines and intersection point
+                xx = np.concatenate([xxmin, xxmax])
+                yy = np.concatenate([minim, maxim])
+                fitmin = slmin*xxmin + intercmin
+                fitmax = slmax*xxmax + intercmax
+              
+
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
+                                open=df['Open'],
+                                high=df['High'],
+                                low=df['Low'],
+                                close=df['Close'])])
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                                marker=dict(size=4, color="MediumPurple"),
+                                name="pivot")
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
+                
+                
+            else:
+        
+                st.markdown(f'<h1 style="color:#cf1002;font-size:20px;">{"No Pattern has been Detected!"}</h1>', unsafe_allow_html=True)
+                
+                #ulta patterns sab bahar hojaayga
+                #bas thoda channel and wedge slopes adjust karna hain
+        
+
+        else:
+            st.markdown(f'<h1 style="color:#cf1002;font-size:20px;">{"The Pivots Points are not Feasible for Pattern Formation!"}</h1>', unsafe_allow_html=True)
+
+        st.markdown('#')
+        st.subheader('Buy/Sell Call')
+        pivot_highs = []
+        pivot_lows = []
+        df = yf.download(user_input,start1,end1)
+        def find_pivot_highs_lows(data):
+        
+            # finding pivot highs
+            for i in range(1, len(df)-1):
+                if df['High'][i-1] < df['High'][i] > df['High'][i+1]:
+                    pivot_highs.append(i)
+            # finding pivot lows
+            for i in range(1, len(df)-1):
+                if df['Low'][i-1] > df['Low'][i] < df['Low'][i+1]:
+                    pivot_lows.append(i)
             
-            fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
-                            open=df['Open'],
-                            high=df['High'],
-                            low=df['Low'],
-                            close=df['Close'])])
+            return pivot_highs, pivot_lows
 
-            fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
-                            marker=dict(size=5, color="MediumPurple"),
-                            name="Pivot")
+        pivot_highs, pivot_lows = find_pivot_highs_lows(df)
+        fig3 = go.Figure(data=[go.Candlestick(x=df.index,
+                                            open=df['Open'],
+                                            high=df['High'],
+                                            low=df['Low'],
+                                            close=df['Close'])])
 
-            fig2.add_trace(go.Scatter(x=FEASIBLE_LOW_PIVOT_POINTS, y=slmin*FEASIBLE_LOW_PIVOT_POINTS + intercmin, mode='lines', line=dict(color="purple"), name='min slope'))
-            fig2.add_trace(go.Scatter(x=FEASIBLE_HIGH_PIVOT_POINTS, y=slmax*FEASIBLE_HIGH_PIVOT_POINTS + intercmax, mode='lines', line=dict(color="purple"), name='max slope'))
+        fig3.add_trace(go.Scatter(x=df.index[pivot_highs],
+                                y=df['High'][pivot_highs],
+                                mode='markers',
+                                name="Sell",
+                                marker=dict(size=10, color='purple', symbol='triangle-down')))
 
-            fig2.update_xaxes(
+        fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
+                                y=df['Low'][pivot_lows],
+                                mode='markers',
+                                name="Buy",
+                                marker=dict(size=10, color='#fc7c19', symbol='triangle-up')))
 
-            )
-            
-            st.plotly_chart(fig2)
-
-        except:
-            st.write("No pattern detected")
+        # fig.show()
+        st.plotly_chart(fig3)
+        
         if __name__ == '__main__':
             st.set_option('deprecation.showPyplotGlobalUse', False)
-
-
+            
