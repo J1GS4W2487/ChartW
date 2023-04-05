@@ -251,8 +251,8 @@ else:
                 
                 
             else:
-                st.subheader("No Pattern has been Detected!")
-                st.markdown(f'<h1 style="color:#33ff33;font-size:24px;">{"ColorMeBlue text”"}</h1>', unsafe_allow_html=True)
+        
+                st.markdown(f'<h1 style="color:#cf1002;font-size:20px;">{"No Pattern has been Detected!"}</h1>', unsafe_allow_html=True)
                 
                 #ulta patterns sab bahar hojaayga
                 #bas thoda channel and wedge slopes adjust karna hain
