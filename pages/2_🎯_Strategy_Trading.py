@@ -54,7 +54,7 @@ else:
 
 
     st.subheader("Indian Flag Strategy ")
-    qf1= cf.QuantFig(df, kind='ohlc', name=user_inputs)
+    qf1= cf.QuantFig(df, kind='ohlc', name=user_inputs, title="Flags")
     qf1.add_ema(periods=20,color='Orange')
     qf1.add_ema(periods=50,color='Blue')
     qf1.add_ema(periods=100,color='Green')
