@@ -125,23 +125,15 @@ else:
                         marker=dict(size=5, color="MediumPurple"),
                         name="Pivot"
                     )
-
-        fig1 = go.Figure(data=[go.Candlestick(x=df.index,
-                        open=df['Open'],
-                        high=df['High'],
-                        low=df['Low'],
-                        close=df['Close'])])
-
-        fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
-                        marker=dict(size=5, color="MediumPurple"),
-                        name="Pivot"
-                    )
         #fig.update_layout(xaxis_rangeslider_visible=False)
         st.plotly_chart(fig1)
 
-        #fig.update_layout(xaxis_rangeslider_visible=False)
         
-        st.subheader('Pivot Points with Buy and Sell Calls')
+        
+       
+        
+        ##BUYSEEL
+        st.subheader('Buy/Sell Call')
         pivot_highs = []
         pivot_lows = []
         df = yf.download(user_input,start1,end1)
@@ -169,18 +161,18 @@ else:
                                 y=df['High'][pivot_highs],
                                 mode='markers',
                                 name="Sell",
-                                marker=dict(size=10, color='purple', symbol='triangle-down')))
+                                marker=dict(size=10, color='red', symbol='triangle-down')))
 
         fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
                                 y=df['Low'][pivot_lows],
                                 mode='markers',
                                 name="Buy",
-                                marker=dict(size=10, color='#f04b05', symbol='triangle-up')))
+                                marker=dict(size=10, color='blue', symbol='triangle-up')))
 
         # fig.show()
         st.plotly_chart(fig3)
-   
-
+        
+        #PATTENR DETECTION
         st.subheader('Chartwise Pattern Detection')
         import numpy as np
         from matplotlib import pyplot
@@ -217,8 +209,8 @@ else:
             print("Slope of maximum points line:", slmax)
             print("Difference between the slopes:",(slmax-slmin))
 
-            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75:
-                st.write("A Channel Pattern is detected!.")
+            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028:
+                st.write("Channel pattern detected.")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -245,8 +237,8 @@ else:
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
 
-            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
-                st.write("A Triangle Pattern has been Detected!")
+            elif (slmin>slmax) and (slmax-slmin)<-4:
+                st.write("TRIANGLE pattern detected.")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -272,10 +264,8 @@ else:
 
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
-                
-                
-            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
-                st.write("A Wedge Pattern has been Detected!")
+            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70:
+                st.write("Wedge pattern detected.")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -304,17 +294,24 @@ else:
                 
                 
             else:
-                st.write("No Pattern has been detected!")
+                st.write("No Pattern")
                 
                 #ulta patterns sab bahar hojaayga
                 #bas thoda channel and wedge slopes adjust karna hain
         
 
         else:
-            st.write("The Pivot Points are not Feasible to Form a Pattern!")
+            st.write("lesser pivot points")
         
         
         
         
         if __name__ == '__main__':
             st.set_option('deprecation.showPyplotGlobalUse', False)
+            
+            
+            
+        
+        
+
+
