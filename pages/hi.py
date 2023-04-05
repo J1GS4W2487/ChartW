@@ -115,18 +115,57 @@ else:
         from plotly.subplots import make_subplots
         from datetime import datetime
 
-        fig1 = go.Figure(data=[go.Candlestick(x=df.index,
-                        open=df['Open'],
-                        high=df['High'],
-                        low=df['Low'],
-                        close=df['Close'])])
+#         fig1 = go.Figure(data=[go.Candlestick(x=df.index,
+#                         open=df['Open'],
+#                         high=df['High'],
+#                         low=df['Low'],
+#                         close=df['Close'])])
 
-        fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
-                        marker=dict(size=5, color="MediumPurple"),
-                        name="Pivot"
-                    )
+#         fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
+#                         marker=dict(size=5, color="MediumPurple"),
+#                         name="Pivot"
+#                     )
+
+        st.subheader('Pivot Points with Buy and Sell Calls')
+        pivot_highs = []
+        pivot_lows = []
+        df = yf.download(user_input,start1,end1)
+        def find_pivot_highs_lows(data):
+        
+            # finding pivot highs
+            for i in range(1, len(df)-1):
+                if df['High'][i-1] < df['High'][i] > df['High'][i+1]:
+                    pivot_highs.append(i)
+            # finding pivot lows
+            for i in range(1, len(df)-1):
+                if df['Low'][i-1] > df['Low'][i] < df['Low'][i+1]:
+                    pivot_lows.append(i)
+            
+            return pivot_highs, pivot_lows
+
+        pivot_highs, pivot_lows = find_pivot_highs_lows(df)
+        fig3 = go.Figure(data=[go.Candlestick(x=df.index,
+                                            open=df['Open'],
+                                            high=df['High'],
+                                            low=df['Low'],
+                                            close=df['Close'])])
+
+        fig3.add_trace(go.Scatter(x=df.index[pivot_highs],
+                                y=df['High'][pivot_highs],
+                                mode='markers',
+                                name="Sell",
+                                marker=dict(size=10, color='purple', symbol='triangle-down')))
+
+        fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
+                                y=df['Low'][pivot_lows],
+                                mode='markers',
+                                name="Buy",
+                                marker=dict(size=10, color='#b33b07', symbol='triangle-up')))
+
+        # fig.show()
+        st.plotly_chart(fig3)
         #fig.update_layout(xaxis_rangeslider_visible=False)
-        st.plotly_chart(fig1)
+   
 
         st.subheader('Chartwise Pattern Detection')
         import numpy as np
@@ -261,44 +300,7 @@ else:
             st.write("The Pivot Points are not Feasible to Form a Pattern!")
         
         
-        st.subheader('Buy/Sell Call')
-        pivot_highs = []
-        pivot_lows = []
-        df = yf.download(user_input,start1,end1)
-        def find_pivot_highs_lows(data):
         
-            # finding pivot highs
-            for i in range(1, len(df)-1):
-                if df['High'][i-1] < df['High'][i] > df['High'][i+1]:
-                    pivot_highs.append(i)
-            # finding pivot lows
-            for i in range(1, len(df)-1):
-                if df['Low'][i-1] > df['Low'][i] < df['Low'][i+1]:
-                    pivot_lows.append(i)
-            
-            return pivot_highs, pivot_lows
-
-        pivot_highs, pivot_lows = find_pivot_highs_lows(df)
-        fig3 = go.Figure(data=[go.Candlestick(x=df.index,
-                                            open=df['Open'],
-                                            high=df['High'],
-                                            low=df['Low'],
-                                            close=df['Close'])])
-
-        fig3.add_trace(go.Scatter(x=df.index[pivot_highs],
-                                y=df['High'][pivot_highs],
-                                mode='markers',
-                                name="Sell",
-                                marker=dict(size=10, color='purple', symbol='triangle-down')))
-
-        fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
-                                y=df['Low'][pivot_lows],
-                                mode='markers',
-                                name="Buy",
-                                marker=dict(size=10, color='#b33b07', symbol='triangle-up')))
-
-        # fig.show()
-        st.plotly_chart(fig3)
         
         if __name__ == '__main__':
             st.set_option('deprecation.showPyplotGlobalUse', False)
