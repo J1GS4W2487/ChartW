@@ -64,7 +64,7 @@ else:
 
     st.write("#")
     st.subheader("Bollinger Bands with RSI")
-    qf = cf.QuantFig(df, kind='ohlc', name=user_inputs)
+    qf = cf.QuantFig(df, kind='ohlc', name=user_inputs,title="Flags")
     qf.add_rsi(periods=14, color='pink')
     qf.add_bollinger_bands(periods=20, boll_std=2 ,colors=['purple','lime'], fill=True)
     fig=qf.iplot(asFigure=True, yTitle="Price", rangeslider=True,kind="ohlc")
@@ -74,7 +74,7 @@ else:
     
     st.write("#")
     st.subheader("MACD")
-    qf2= cf.QuantFig(df, kind='ohlc', name=user_inputs)
+    qf2= cf.QuantFig(df, kind='ohlc', name=user_inputs,title="Flags")
     qf2.add_macd(fast_period=15, slow_period=30, signal_period=9, column=None, name='')
     fig3=qf2.iplot(asFigure=True, yTitle="Price", rangeslider=True,kind="ohlc")
     st.plotly_chart(fig3)
