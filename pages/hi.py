@@ -218,6 +218,8 @@ else:
                                 name="pivot")
                 fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
                 fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+                fig2.add_trace(go.Scatter(x=[xi], y=[yi], mode='markers', name='intersection',
+                         marker=dict(size=10, color="red")))
 
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
