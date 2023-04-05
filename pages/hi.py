@@ -121,7 +121,7 @@ else:
                         low=df['Low'],
                         close=df['Close'])])
 
-        fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
+       fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
                         marker=dict(size=5, color="MediumPurple"),
                         name="Pivot"
                     )
