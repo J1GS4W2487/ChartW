@@ -221,7 +221,7 @@ else:
                 st.plotly_chart(fig2)
                 
                 
-            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75::
+            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
                 st.write("A Wedge Patter is Detected!")
 
                 # Find the intersection point of the two lines
