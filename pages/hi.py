@@ -295,7 +295,7 @@ else:
                                 y=df['Low'][pivot_lows],
                                 mode='markers',
                                 name="Buy",
-                                marker=dict(size=10, color='yellow', symbol='triangle-up')))
+                                marker=dict(size=10, color='#f7cb05', symbol='triangle-up')))
 
         # fig.show()
         st.plotly_chart(fig3)
