@@ -46,7 +46,7 @@ end1 = st.date_input(
 )
 
 if start1==end1:
-    st.write("Please enter different dates")
+    st.write("Please Enter different dates")
 
 else:
     
@@ -127,48 +127,6 @@ else:
                     )
         #fig.update_layout(xaxis_rangeslider_visible=False)
         st.plotly_chart(fig1)
-        
-        ####################
-        st.subheader('Buy/Sell Call')
-        pivot_highs = []
-        pivot_lows = []
-        df = yf.download(user_input,start1,end1)
-        def find_pivot_highs_lows(data):
-        
-            # finding pivot highs
-            for i in range(1, len(df)-1):
-                if df['High'][i-1] < df['High'][i] > df['High'][i+1]:
-                    pivot_highs.append(i)
-            # finding pivot lows
-            for i in range(1, len(df)-1):
-                if df['Low'][i-1] > df['Low'][i] < df['Low'][i+1]:
-                    pivot_lows.append(i)
-            
-            return pivot_highs, pivot_lows
-
-        pivot_highs, pivot_lows = find_pivot_highs_lows(df)
-        fig3 = go.Figure(data=[go.Candlestick(x=df.index,
-                                            open=df['Open'],
-                                            high=df['High'],
-                                            low=df['Low'],
-                                            close=df['Close'])])
-
-        fig3.add_trace(go.Scatter(x=df.index[pivot_highs],
-                                y=df['High'][pivot_highs],
-                                mode='markers',
-                                name="Sell",
-                                marker=dict(size=10, color='red', symbol='triangle-down')))
-
-        fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
-                                y=df['Low'][pivot_lows],
-                                mode='markers',
-                                name="Buy",
-                                marker=dict(size=10, color='blue', symbol='triangle-up')))
-
-        # fig.show()
-        st.plotly_chart(fig3)
-        
-        ##############
 
         st.subheader('Chartwise Pattern Detection')
         import numpy as np
@@ -206,8 +164,8 @@ else:
             print("Slope of maximum points line:", slmax)
             print("Difference between the slopes:",(slmax-slmin))
 
-            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028:
-                st.write("Channel pattern detected.")
+            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75:
+                st.write("A Channel Pattern has been Detected!")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -234,8 +192,8 @@ else:
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
 
-            elif (slmin>slmax) and (slmax-slmin)<-4:
-                st.write("TRIANGLE pattern detected.")
+            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
+                st.write("A Triangle Pattern has been Detected!")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -261,8 +219,9 @@ else:
 
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
-            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70:
-                st.write("Wedge pattern detected.")
+                
+            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
+                st.write("A Wedge Pattern has ben Detected!")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -291,14 +250,14 @@ else:
                 
                 
             else:
-                st.write("No Pattern")
+                st.subheader("No Pattern has been Detected!")
                 
                 #ulta patterns sab bahar hojaayga
                 #bas thoda channel and wedge slopes adjust karna hain
         
 
         else:
-            st.write("lesser pivot points")
+            st.subheader("The Pivots Points are not Feasible for Pattern Formation!")
         
         
         st.subheader('Buy/Sell Call')
