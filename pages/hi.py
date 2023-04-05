@@ -121,12 +121,12 @@ else:
                         low=df['Low'],
                         close=df['Close'])])
 
-       fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
+        fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
                         marker=dict(size=5, color="MediumPurple"),
                         name="Pivot"
                     )
 
-       fig1 = go.Figure(data=[go.Candlestick(x=df.index,
+        fig1 = go.Figure(data=[go.Candlestick(x=df.index,
                         open=df['Open'],
                         high=df['High'],
                         low=df['Low'],
