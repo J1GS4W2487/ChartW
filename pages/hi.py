@@ -259,7 +259,7 @@ else:
         else:
             st.subheader("The Pivots Points are not Feasible for Pattern Formation!")
         
-        
+        st.markdown('#')
         st.subheader('Buy/Sell Call')
         pivot_highs = []
         pivot_lows = []
