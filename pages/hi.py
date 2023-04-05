@@ -193,7 +193,7 @@ else:
                 st.plotly_chart(fig2)
 
             elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
-                st.write("A Triangle Pattern is Detected!")
+                st.write("A Triangle Pattern has been Detected!")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -222,7 +222,7 @@ else:
                 
                 
             elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
-                st.write("A Wedge Patter is Detected!")
+                st.write("A Wedge Pattern has been Detected!")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -295,7 +295,7 @@ else:
                                 y=df['Low'][pivot_lows],
                                 mode='markers',
                                 name="Buy",
-                                marker=dict(size=10, color='#f7cb05', symbol='triangle-up')))
+                                marker=dict(size=10, color='#b33b07', symbol='triangle-up')))
 
         # fig.show()
         st.plotly_chart(fig3)
