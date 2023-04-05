@@ -164,7 +164,7 @@ else:
             print("Slope of maximum points line:", slmax)
             print("Difference between the slopes:",(slmax-slmin))
 
-            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75 :
+            if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75:
                 st.write("A Channel Pattern is detected!.")
 
                 # Find the intersection point of the two lines
@@ -192,7 +192,7 @@ else:
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
 
-            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75::
+            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
                 st.write("A Triangle Pattern is Detected!")
 
                 # Find the intersection point of the two lines
