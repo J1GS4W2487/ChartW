@@ -259,8 +259,8 @@ else:
         
 
         else:
-            st.subheader("The Pivots Points are not Feasible for Pattern Formation!")
-        
+            st.markdown(f'<h1 style="color:#cf1002;font-size:20px;">{"The Pivots Points are not Feasible for Pattern Formation!"}</h1>', unsafe_allow_html=True)
+
         st.markdown('#')
         st.subheader('Buy/Sell Call')
         pivot_highs = []
