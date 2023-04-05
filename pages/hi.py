@@ -22,10 +22,6 @@ import math
 import matplotlib.pyplot as plt
 from scipy import stats
 import scipy as sp
-import numpy as np
-from matplotlib import pyplot
-from scipy.stats import linregress
-import pandas as pd
 
 # start = '2010-01-01'
 # end = '2019-12-31'
@@ -57,7 +53,9 @@ else:
 
     user_input = st.text_input('Enter Stock Ticker 🔠', 'AAPL')
     df = yf.download(user_input,start1,end1)
+    df1 = yf.download(user_input, start=end1)
     df['Id'] = np.arange(1, len(df)+1)
+    df1['Id'] = np.arange(df.Id.max(), len(df1)+df.Id.max())
 
     st.write("#")
     st.write("#")
@@ -130,11 +128,11 @@ else:
         #fig.update_layout(xaxis_rangeslider_visible=False)
         st.plotly_chart(fig1)
 
-        st.subheader('Triangle Pattern Detection')
+        st.subheader('Chartwise Pattern Detection')
+        import numpy as np
+        from matplotlib import pyplot
         from scipy.stats import linregress
-
-        # Triangle Pattern
-
+        import pandas as pd
 
         backcandles = 50
 
@@ -152,7 +150,7 @@ else:
             if df.iloc[i].Pivot == 2:
                 maxim = np.append(maxim, df.iloc[i].High)
                 xxmax = np.append(xxmax, i) # df.iloc[i].name
-
+                
         #slmin, intercmin = np.polyfit(xxmin, minim,1) #numpy
         #slmax, intercmax = np.polyfit(xxmax, maxim,1)
 
@@ -167,66 +165,7 @@ else:
             print("Difference between the slopes:",(slmax-slmin))
 
             if (slmax-slmin) < 0.015 and (slmax-slmin)>-0.095 and (slmax-slmin)>-0.028 and abs(rmin)>0.75 :
-
-                print("Channel pattern detected.")
-
-                # Find the intersection point of the two lines
-                xi = (intercmin - intercmax) / (slmax - slmin)
-                yi = slmin * xi + intercmin
-
-                # Plot the graph with the trendlines and intersection point
-                xx = np.concatenate([xxmin, xxmax])
-                yy = np.concatenate([minim, maxim])
-                fitmin = slmin*xxmin + intercmin
-                fitmax = slmax*xxmax + intercmax
-        #         df = pd.concat([df, df1])
-
-                fig = go.Figure(data=[go.Candlestick(x=df.Id,
-                                open=df['Open'],
-                                high=df['High'],
-                                low=df['Low'],
-                                close=df['Close'])])
-                fig.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
-                                marker=dict(size=4, color="MediumPurple"),
-                                name="pivot")
-                fig.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
-                fig.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
-
-                fig.update_xaxes()
-                fig.show()
-                print(len(xxmin),xxmax)
-
-            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
-                print("TRI pattern detected.")
-
-                # Find the intersection point of the two lines
-                xi = (intercmin - intercmax) / (slmax - slmin)
-                yi = slmin * xi + intercmin
-
-                # Plot the graph with the trendlines and intersection point
-                xx = np.concatenate([xxmin, xxmax])
-                yy = np.concatenate([minim, maxim])
-                fitmin = slmin*xxmin + intercmin
-                fitmax = slmax*xxmax + intercmax
-        #         df = pd.concat([df, df1])
-
-                fig = go.Figure(data=[go.Candlestick(x=df.Id,
-                                open=df['Open'],
-                                high=df['High'],
-                                low=df['Low'],
-                                close=df['Close'])])
-                fig.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
-                                marker=dict(size=4, color="MediumPurple"),
-                                name="pivot")
-                fig.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
-                fig.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
-                fig.add_trace(go.Scatter(x=[xi], y=[yi], mode='markers', name='intersection',
-                                      marker=dict(size=10, color="blue")))
-
-                fig.update_xaxes()
-                fig.show()
-            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75:
-                print("W pattern detected.")
+                st.write("A Channel Pattern is detected!.")
 
                 # Find the intersection point of the two lines
                 xi = (intercmin - intercmax) / (slmax - slmin)
@@ -239,62 +178,127 @@ else:
                 fitmax = slmax*xxmax + intercmax
                 df = pd.concat([df, df1])
 
-                fig = go.Figure(data=[go.Candlestick(x=df.Id,
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
                                 open=df['Open'],
                                 high=df['High'],
                                 low=df['Low'],
                                 close=df['Close'])])
-                fig.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
                                 marker=dict(size=4, color="MediumPurple"),
                                 name="pivot")
-                fig.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
-                fig.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
 
-                fig.update_xaxes()
-                fig.show()
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
 
+            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75::
+                st.write("A Triangle Pattern is Detected!")
 
+                # Find the intersection point of the two lines
+                xi = (intercmin - intercmax) / (slmax - slmin)
+                yi = slmin * xi + intercmin
+
+                # Plot the graph with the trendlines and intersection point
+                xx = np.concatenate([xxmin, xxmax])
+                yy = np.concatenate([minim, maxim])
+                fitmin = slmin*xxmin + intercmin
+                fitmax = slmax*xxmax + intercmax
+                df = pd.concat([df, df1])
+
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
+                                open=df['Open'],
+                                high=df['High'],
+                                low=df['Low'],
+                                close=df['Close'])])
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                                marker=dict(size=4, color="MediumPurple"),
+                                name="pivot")
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
+                
+                
+            elif (slmax-slmin)<-0.03 and (slmax-slmin)>-3.70 and abs(rmin)>0.75::
+                st.write("A Wedge Patter is Detected!")
+
+                # Find the intersection point of the two lines
+                xi = (intercmin - intercmax) / (slmax - slmin)
+                yi = slmin * xi + intercmin
+
+                # Plot the graph with the trendlines and intersection point
+                xx = np.concatenate([xxmin, xxmax])
+                yy = np.concatenate([minim, maxim])
+                fitmin = slmin*xxmin + intercmin
+                fitmax = slmax*xxmax + intercmax
+                df = pd.concat([df, df1])
+
+                fig2 = go.Figure(data=[go.Candlestick(x=df.Id,
+                                open=df['Open'],
+                                high=df['High'],
+                                low=df['Low'],
+                                close=df['Close'])])
+                fig2.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
+                                marker=dict(size=4, color="MediumPurple"),
+                                name="pivot")
+                fig2.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
+                fig2.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
+
+                fig2.update_xaxes()
+                st.plotly_chart(fig2)
+                
+                
             else:
-                  # Find the intersection point of the two lines
-                print(" KUCH nahi")
-                # Find the intersection point of the two lines
-                xi = (intercmin - intercmax) / (slmax - slmin)
-                yi = slmin * xi + intercmin
-
-                # Plot the graph with the trendlines and intersection point
-                xx = np.concatenate([xxmin, xxmax])
-                yy = np.concatenate([minim, maxim])
-                fitmin = slmin*xxmin + intercmin
-                fitmax = slmax*xxmax + intercmax
-                df = pd.concat([df, df1])
-
-                fig = go.Figure(data=[go.Candlestick(x=df.Id,
-                                open=df['Open'],
-                                high=df['High'],
-                                low=df['Low'],
-                                close=df['Close'])])
-                fig.add_scatter(x=df.Id, y=df['PointPosition'], mode="markers",
-                                marker=dict(size=4, color="MediumPurple"),
-                                name="pivot")
-                fig.add_trace(go.Scatter(x=xxmin, y=fitmin, mode='lines', name='min slope'))
-                fig.add_trace(go.Scatter(x=xxmax, y=fitmax, mode='lines', name='max slope'))
-
-                fig.update_xaxes()
-                fig.show()
+                st.write("No Pattern has been detected!")
+                
                 #ulta patterns sab bahar hojaayga
                 #bas thoda channel and wedge slopes adjust karna hain
-
+        
 
         else:
-            print("lesser pivot points")
-
-
-
+            st.write("The Pivot Points are not Feasible to Form a Pattern!")
+        
+        
+        st.subheader('Buy/Sell Call')
+        pivot_highs = []
+        pivot_lows = []
+        df = yf.download(user_input,start1,end1)
+        def find_pivot_highs_lows(data):
+        
+            # finding pivot highs
+            for i in range(1, len(df)-1):
+                if df['High'][i-1] < df['High'][i] > df['High'][i+1]:
+                    pivot_highs.append(i)
+            # finding pivot lows
+            for i in range(1, len(df)-1):
+                if df['Low'][i-1] > df['Low'][i] < df['Low'][i+1]:
+                    pivot_lows.append(i)
             
-            st.plotly_chart(fig)
+            return pivot_highs, pivot_lows
 
-        except:
-            st.write("No pattern detected")
+        pivot_highs, pivot_lows = find_pivot_highs_lows(df)
+        fig3 = go.Figure(data=[go.Candlestick(x=df.index,
+                                            open=df['Open'],
+                                            high=df['High'],
+                                            low=df['Low'],
+                                            close=df['Close'])])
+
+        fig3.add_trace(go.Scatter(x=df.index[pivot_highs],
+                                y=df['High'][pivot_highs],
+                                mode='markers',
+                                name="Sell",
+                                marker=dict(size=10, color='purple', symbol='triangle-down')))
+
+        fig3.add_trace(go.Scatter(x=df.index[pivot_lows],
+                                y=df['Low'][pivot_lows],
+                                mode='markers',
+                                name="Buy",
+                                marker=dict(size=10, color='yellow', symbol='triangle-up')))
+
+        # fig.show()
+        st.plotly_chart(fig3)
+        
         if __name__ == '__main__':
             st.set_option('deprecation.showPyplotGlobalUse', False)
-
