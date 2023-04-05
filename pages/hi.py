@@ -129,7 +129,7 @@ else:
        
         #fig.update_layout(xaxis_rangeslider_visible=False)
         
-         st.subheader('Pivot Points with Buy and Sell Calls')
+        st.subheader('Pivot Points with Buy and Sell Calls')
         pivot_highs = []
         pivot_lows = []
         df = yf.download(user_input,start1,end1)
