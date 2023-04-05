@@ -66,6 +66,7 @@ else:
     else:
         st.subheader('Data Frame')
         st.write(df)
+        st.markdown('#')
         st.subheader('Candlestick Chart')
 
 
@@ -251,6 +252,7 @@ else:
                 
             else:
                 st.subheader("No Pattern has been Detected!")
+                st.markdown(f'<h1 style="color:#33ff33;font-size:24px;">{"ColorMeBlue text”"}</h1>', unsafe_allow_html=True)
                 
                 #ulta patterns sab bahar hojaayga
                 #bas thoda channel and wedge slopes adjust karna hain
