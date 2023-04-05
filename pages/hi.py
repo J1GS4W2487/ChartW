@@ -115,18 +115,21 @@ else:
         from plotly.subplots import make_subplots
         from datetime import datetime
 
-#         fig1 = go.Figure(data=[go.Candlestick(x=df.index,
-#                         open=df['Open'],
-#                         high=df['High'],
-#                         low=df['Low'],
-#                         close=df['Close'])])
+        fig1 = go.Figure(data=[go.Candlestick(x=df.index,
+                        open=df['Open'],
+                        high=df['High'],
+                        low=df['Low'],
+                        close=df['Close'])])
 
-#         fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
-#                         marker=dict(size=5, color="MediumPurple"),
-#                         name="Pivot"
-#                     )
+        fig1.add_scatter(x=df.index, y=df['PointPosition'], mode="markers",
+                        marker=dict(size=5, color="MediumPurple"),
+                        name="Pivot"
+                    )
 
-        st.subheader('Pivot Points with Buy and Sell Calls')
+       
+        #fig.update_layout(xaxis_rangeslider_visible=False)
+        
+         st.subheader('Pivot Points with Buy and Sell Calls')
         pivot_highs = []
         pivot_lows = []
         df = yf.download(user_input,start1,end1)
@@ -160,11 +163,10 @@ else:
                                 y=df['Low'][pivot_lows],
                                 mode='markers',
                                 name="Buy",
-                                marker=dict(size=10, color='#b33b07', symbol='triangle-up')))
+                                marker=dict(size=10, color='#f04b05', symbol='triangle-up')))
 
         # fig.show()
         st.plotly_chart(fig3)
-        #fig.update_layout(xaxis_rangeslider_visible=False)
    
 
         st.subheader('Chartwise Pattern Detection')
