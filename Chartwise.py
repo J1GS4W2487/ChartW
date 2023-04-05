@@ -193,7 +193,7 @@ else:
                 fig2.update_xaxes()
                 st.plotly_chart(fig2)
 
-            elif (slmin>slmax) and (slmax-slmin)<-4 and abs(rmin)>0.75:
+            elif (slmax-slmin)<-4 and abs(rmin)>0.75:
                 st.markdown(f'<h1 style="color:#039c2c;font-size:16px;">{"A Triangle Pattern has been Detected!!"}</h1>', unsafe_allow_html=True)
              
 
